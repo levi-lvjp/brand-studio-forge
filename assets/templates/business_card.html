@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{BRAND_NAME}} — Business Card</title>
+{{FONT_LINK}}
+<style>
+  :root {
+    --primary: {{PRIMARY_COLOR}};
+    --secondary: {{SECONDARY_COLOR}};
+    --neutral: {{NEUTRAL_TONE}};
+    --ink: oklch(0.22 0.01 75);
+    --ink-light: oklch(0.45 0.008 75);
+    --ink-caption: oklch(0.55 0.006 75);
+    --paper: oklch(0.97 0.008 85);
+    --paper-warm: oklch(0.94 0.012 80);
+    --paper-deep: oklch(0.90 0.015 78);
+    --rule: oklch(0.82 0.01 80);
+    --display-font: {{DISPLAY_FONT}};
+    --body-font: {{BODY_FONT}};
+    --card-w: 89mm;
+    --card-h: 51mm;
+    --bleed: 3mm;
+    --safe: 5mm;
+  }
+
+  @page {
+    size: 95mm 57mm;
+    margin: 0;
+    bleed: 3mm;
+    marks: crop cross;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    font-family: var(--body-font), "Helvetica Neue", Helvetica, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.6;
+    letter-spacing: 0.005em;
+  }
+
+  .card {
+    width: 95mm;
+    height: 57mm;
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .card:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  .card__bleed {
+    position: absolute;
+    inset: 0;
+  }
+
+  /* ---- FRONT ---- */
+
+  .card-front {
+    display: flex;
+    align-items: stretch;
+    height: 100%;
+  }
+
+  .card-front__accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2.5mm;
+    background: var(--primary);
+  }
+
+  .card-front__body {
+    padding: var(--safe);
+    padding-top: calc(var(--safe) + 3mm);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+  }
+
+  .card-front__logo {
+    height: 10mm;
+    margin-bottom: 3mm;
+    display: flex;
+    align-items: center;
+  }
+
+  .card-front__logo svg {
+    max-height: 10mm;
+    max-width: 32mm;
+  }
+
+  .card-front__logo img {
+    max-height: 10mm;
+    max-width: 32mm;
+    object-fit: contain;
+  }
+
+  .card-front__name {
+    font-family: var(--display-font), Georgia, serif;
+    font-size: 13pt;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+    margin-bottom: 1mm;
+  }
+
+  .card-front__title {
+    font-family: var(--body-font), sans-serif;
+    font-size: 6.5pt;
+    font-weight: 400;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    color: var(--ink-light);
+    margin-bottom: 3mm;
+  }
+
+  .card-front__rule {
+    width: 10mm;
+    height: 0.5pt;
+    background: var(--primary);
+    margin-bottom: 3.5mm;
+  }
+
+  .card-front__contact {
+    list-style: none;
+  }
+
+  .card-front__contact li {
+    font-family: var(--body-font), sans-serif;
+    font-size: 6pt;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+    color: var(--ink);
+    padding: 0.6mm 0;
+  }
+
+  .card-front__brand-mark {
+    position: absolute;
+    bottom: var(--safe);
+    right: var(--safe);
+    width: 14mm;
+    opacity: 0.12;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .card-front__brand-mark svg {
+    max-height: 12mm;
+    max-width: 14mm;
+  }
+
+  .card-front__brand-mark img {
+    max-height: 12mm;
+    max-width: 14mm;
+    object-fit: contain;
+  }
+
+  /* ---- BACK ---- */
+
+  .card-back {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--primary);
+    position: relative;
+  }
+
+  .card-back__pattern {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.15;
+  }
+
+  .card-back__pattern svg {
+    width: 18mm;
+    height: 18mm;
+  }
+
+  .card-back__pattern img {
+    width: 18mm;
+    height: 18mm;
+    object-fit: contain;
+  }
+
+  .card-back__wordmark {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-back__brand {
+    font-family: var(--display-font), Georgia, serif;
+    font-size: 8pt;
+    font-weight: 400;
+    letter-spacing: 0.06em;
+    color: oklch(0.97 0.005 90);
+  }
+
+  .card-back__url {
+    font-family: var(--body-font), sans-serif;
+    font-size: 5.5pt;
+    letter-spacing: 0.06em;
+    color: oklch(0.97 0.005 90);
+    opacity: 0.7;
+    position: absolute;
+    bottom: var(--safe);
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<!-- FRONT -->
+<div class="card">
+  <div class="card-front">
+    <div class="card-front__accent"></div>
+    <div class="card-front__body">
+      <div class="card-front__logo">{{LOGO_SVG}}</div>
+      <div class="card-front__name">{{CONTACT_NAME}}</div>
+      <div class="card-front__title">{{CONTACT_TITLE}}</div>
+      <div class="card-front__rule"></div>
+      <ul class="card-front__contact">
+        <li>{{CONTACT_EMAIL}}</li>
+        <li>{{CONTACT_PHONE}}</li>
+        <li>{{CONTACT_URL}}</li>
+      </ul>
+    </div>
+    <div class="card-front__brand-mark">{{LOGO_SVG}}</div>
+  </div>
+</div>
+
+<!-- BACK -->
+<div class="card">
+  <div class="card-back">
+    <div class="card-back__pattern">{{LOGO_SVG}}</div>
+    <div class="card-back__wordmark">
+      <span class="card-back__brand">{{BRAND_NAME}}</span>
+    </div>
+    <div class="card-back__url">{{CONTACT_URL}}</div>
+  </div>
+</div>
+
+</body>
+</html>

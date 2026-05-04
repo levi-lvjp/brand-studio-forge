@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{BRAND_NAME}} — Logo Usage Sheet</title>
+{{FONT_LINK}}
+<style>
+  :root {
+    --primary: {{PRIMARY_COLOR}};
+    --secondary: {{SECONDARY_COLOR}};
+    --neutral: {{NEUTRAL_TONE}};
+    --ink: oklch(0.22 0.01 75);
+    --ink-light: oklch(0.45 0.008 75);
+    --ink-caption: oklch(0.55 0.006 75);
+    --paper: oklch(0.97 0.008 85);
+    --paper-warm: oklch(0.94 0.012 80);
+    --paper-deep: oklch(0.90 0.015 78);
+    --rule: oklch(0.82 0.01 80);
+    --display-font: {{DISPLAY_FONT}};
+    --body-font: {{BODY_FONT}};
+    --page-w: 210mm;
+    --page-h: 297mm;
+    --margin-outer: 24mm;
+    --gutter: 8mm;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 11pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    font-family: var(--body-font), "Helvetica Neue", Helvetica, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.6;
+    letter-spacing: 0.005em;
+  }
+
+  .page {
+    width: var(--page-w);
+    height: var(--page-h);
+    padding: var(--margin-outer);
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    break-after: page;
+    background: var(--paper);
+  }
+
+  .page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  /* ---- PAGE HEADER ---- */
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 6mm;
+    margin-bottom: 8mm;
+    border-bottom: 0.5pt solid var(--rule);
+  }
+
+  .page-header__brand {
+    font-family: var(--display-font), serif;
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--ink-light);
+  }
+
+  .page-header__section {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-caption);
+  }
+
+  .page-number {
+    position: absolute;
+    bottom: var(--margin-outer);
+    right: var(--margin-outer);
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.6rem;
+    color: var(--ink-caption);
+    letter-spacing: 0.02em;
+  }
+
+  /* ---- TYPOGRAPHY ---- */
+
+  .t-display {
+    font-family: var(--display-font), Georgia, serif;
+    font-size: 3.2rem;
+    font-weight: 300;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .t-h1 {
+    font-family: var(--display-font), Georgia, serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .t-h2 {
+    font-family: var(--display-font), Georgia, serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+
+  .t-h3 {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+  }
+
+  .t-body {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  .t-caption {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.72rem;
+    line-height: 1.45;
+    letter-spacing: 0.03em;
+    color: var(--ink-caption);
+  }
+
+  .t-label {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-caption);
+  }
+
+  /* ---- SECTION TITLE ---- */
+
+  .section-title {
+    margin-bottom: 14mm;
+  }
+
+  .section-title__number {
+    display: block;
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 3mm;
+  }
+
+  .section-title__text {
+    font-family: var(--display-font), serif;
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+
+  .section-title__rule {
+    display: block;
+    width: 32mm;
+    height: 0.5pt;
+    background: var(--primary);
+    margin-top: 5mm;
+  }
+
+  /* ---- LOGO PANEL ---- */
+
+  .logo-panel {
+    background: var(--paper-warm);
+    padding: 14mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52mm;
+    margin-bottom: 5mm;
+  }
+
+  .logo-panel svg {
+    max-width: 52mm;
+    max-height: 36mm;
+  }
+
+  .logo-panel img {
+    max-width: 52mm;
+    max-height: 36mm;
+    object-fit: contain;
+  }
+
+  .logo-panel--dark {
+    background: var(--ink);
+  }
+
+  .logo-panel--primary {
+    background: var(--primary);
+  }
+
+  .logo-panel__caption {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.72rem;
+    color: var(--ink-caption);
+    line-height: 1.45;
+    margin-bottom: 8mm;
+  }
+
+  /* ---- TWO-COLUMN ---- */
+
+  .cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gutter);
+  }
+
+  .cols--wide-left {
+    grid-template-columns: 1.4fr 1fr;
+  }
+
+  /* ---- LOGO VARIANTS GRID ---- */
+
+  .variant-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5mm;
+    margin-bottom: 8mm;
+  }
+
+  .variant-cell {
+    padding: 10mm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 40mm;
+  }
+
+  .variant-cell__mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+
+  .variant-cell__mark svg {
+    max-width: 34mm;
+    max-height: 26mm;
+  }
+
+  .variant-cell__mark img {
+    max-width: 34mm;
+    max-height: 26mm;
+    object-fit: contain;
+  }
+
+  .variant-cell__label {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.62rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--ink-caption);
+    margin-top: 3mm;
+  }
+
+  /* ---- SIZING SCALE ---- */
+
+  .scale-row {
+    display: flex;
+    align-items: baseline;
+    gap: 10mm;
+    padding: 6mm 0;
+    margin-bottom: 4mm;
+  }
+
+  .scale-row__label {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--ink-light);
+    width: 28mm;
+    flex-shrink: 0;
+  }
+
+  .scale-row__specimen {
+    display: flex;
+    align-items: center;
+  }
+
+  .scale-row__specimen svg {
+    max-height: 24mm;
+  }
+
+  .scale-row__specimen img {
+    max-height: 24mm;
+    object-fit: contain;
+  }
+
+  .scale-row--large .scale-row__specimen svg {
+    max-height: 28mm;
+  }
+
+  .scale-row--large .scale-row__specimen img {
+    max-height: 28mm;
+    object-fit: contain;
+  }
+
+  .scale-row--small .scale-row__specimen svg {
+    max-height: 10mm;
+  }
+
+  .scale-row--small .scale-row__specimen img {
+    max-height: 10mm;
+    object-fit: contain;
+  }
+
+  .scale-row--tiny .scale-row__specimen svg {
+    max-height: 6mm;
+  }
+
+  .scale-row--tiny .scale-row__specimen img {
+    max-height: 6mm;
+    object-fit: contain;
+  }
+
+  /* ---- CLEAR SPACE ---- */
+
+  .clearspace-diagram {
+    position: relative;
+    background: var(--paper-warm);
+    padding: 18mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5mm;
+    min-height: 48mm;
+  }
+
+  .clearspace-diagram svg {
+    max-width: 30mm;
+    max-height: 22mm;
+    position: relative;
+    z-index: 1;
+  }
+
+  .clearspace-diagram img {
+    max-width: 30mm;
+    max-height: 22mm;
+    object-fit: contain;
+  }
+
+  .clearspace-diagram__zone {
+    position: absolute;
+    border: 0.5pt dashed var(--primary);
+    opacity: 0.45;
+  }
+
+  .clearspace-note {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.72rem;
+    color: var(--ink-caption);
+    line-height: 1.5;
+  }
+
+  /* ---- SPACING ---- */
+
+  .spacer--s { height: 4mm; }
+  .spacer--m { height: 8mm; }
+  .spacer--l { height: 14mm; }
+
+  .divider {
+    border: none;
+    border-top: 0.5pt solid var(--rule);
+    margin: 8mm 0;
+  }
+
+  .footnote {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.6rem;
+    color: var(--ink-caption);
+    line-height: 1.5;
+    margin-top: 8mm;
+    padding-top: 4mm;
+    border-top: 0.25pt solid var(--rule);
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================ -->
+<!-- PAGE 1: LOGO VARIANTS & ENVIRONMENTS         -->
+<!-- ============================================ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header__brand">{{BRAND_NAME}}</span>
+    <span class="page-header__section">Logo Usage</span>
+  </div>
+
+  <div class="section-title">
+    <span class="section-title__number">Logo Sheet</span>
+    <span class="section-title__text">Logo Usage &amp; Variants</span>
+    <span class="section-title__rule"></span>
+  </div>
+
+  <div class="t-body" style="max-width: 75%; margin-bottom: 10mm;">
+    The {{BRAND_NAME}} logo exists in multiple configurations to work across every environment. Use the correct variant for the context.
+  </div>
+
+  <!-- PRIMARY LOGO -->
+  <div class="t-h3" style="margin-bottom: 4mm;">Primary Logo</div>
+  <div class="logo-panel">
+    {{LOGO_SVG}}
+  </div>
+  <div class="logo-panel__caption">
+    Use the primary logo as the default on light backgrounds. This is the preferred configuration in all applications.
+  </div>
+
+  <!-- VARIANT GRID -->
+  <div class="cols">
+    <div>
+      <div class="t-h3" style="margin-bottom: 4mm;">Icon Only</div>
+      <div class="logo-panel" style="min-height: 40mm; padding: 10mm;">
+        {{LOGO_ICON_SVG}}
+      </div>
+      <div class="logo-panel__caption">
+        Icon-only mark for favicons, app icons, social avatars, and tight spaces where the full logotype won't fit.
+      </div>
+    </div>
+    <div>
+      <div class="t-h3" style="margin-bottom: 4mm;">Monochrome</div>
+      <div class="logo-panel" style="min-height: 40mm; padding: 10mm;">
+        {{LOGO_MONO_SVG}}
+      </div>
+      <div class="logo-panel__caption">
+        Single-color variant for one-color printing, embossing, foil stamping, and engraving applications.
+      </div>
+    </div>
+  </div>
+
+  <span class="page-number">01</span>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 2: ON DARK / ON BRAND / SIZING         -->
+<!-- ============================================ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header__brand">{{BRAND_NAME}}</span>
+    <span class="page-header__section">Logo Usage</span>
+  </div>
+
+  <div class="t-h2" style="margin-bottom: 8mm;">Logo on Colored Grounds</div>
+
+  <div class="cols">
+    <div>
+      <div class="t-h3" style="margin-bottom: 3mm;">Reversed (dark)</div>
+      <div class="logo-panel logo-panel--dark">
+        {{LOGO_SVG}}
+      </div>
+      <div class="logo-panel__caption">
+        Use the reversed logo on dark backgrounds. Ensure sufficient contrast with the ground color.
+      </div>
+    </div>
+    <div>
+      <div class="t-h3" style="margin-bottom: 3mm;">On brand color</div>
+      <div class="logo-panel logo-panel--primary">
+        {{LOGO_SVG}}
+      </div>
+      <div class="logo-panel__caption">
+        On primary brand color. Test contrast. If the mark loses legibility, use the reversed variant or a neutral ground.
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- SIZE SCALE -->
+  <div class="t-h3" style="margin-bottom: 5mm;">Size Reference</div>
+  <div class="t-body" style="max-width: 70%; margin-bottom: 6mm;">
+    The logo scales across touchpoints. Below shows the relative sizes from large signage to the minimum reproduction size.
+  </div>
+
+  <div class="scale-row scale-row--large">
+    <span class="scale-row__label">Signage</span>
+    <div class="scale-row__specimen">{{LOGO_SVG}}</div>
+  </div>
+  <div class="scale-row">
+    <span class="scale-row__label">Standard</span>
+    <div class="scale-row__specimen">{{LOGO_SVG}}</div>
+  </div>
+  <div class="scale-row scale-row--small">
+    <span class="scale-row__label">Small print</span>
+    <div class="scale-row__specimen">{{LOGO_SVG}}</div>
+  </div>
+  <div class="scale-row scale-row--tiny">
+    <span class="scale-row__label">Minimum<br><span style="font-weight: 400;">{{MIN_SIZE}}</span></span>
+    <div class="scale-row__specimen">{{LOGO_SVG}}</div>
+  </div>
+
+  <div class="footnote">
+    Minimum reproduction size: {{MIN_SIZE}}. Below this threshold, fine details are lost and legibility suffers. The logo must never be reproduced smaller than this specification.
+  </div>
+
+  <span class="page-number">02</span>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 3: CLEAR SPACE & USAGE NOTES            -->
+<!-- ============================================ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header__brand">{{BRAND_NAME}}</span>
+    <span class="page-header__section">Logo Usage</span>
+  </div>
+
+  <div class="t-h2" style="margin-bottom: 4mm;">Clear Space &amp; Exclusion Zone</div>
+  <div class="t-body" style="max-width: 75%; margin-bottom: 10mm;">
+    Every time the logo is placed, it requires breathing room. The clear space zone ensures the mark stands apart from surrounding elements.
+  </div>
+
+  <div class="cols cols--wide-left">
+    <div>
+      <div class="clearspace-diagram">
+        <div class="clearspace-diagram__zone"></div>
+        {{LOGO_SVG}}
+      </div>
+    </div>
+    <div>
+      <div class="clearspace-note" style="margin-bottom: 10mm;">
+        The exclusion zone extends {{CLEAR_SPACE}} from all edges of the logo. No text, graphic element, photograph, or page edge may enter this zone.
+      </div>
+      <div class="t-h3" style="margin-bottom: 3mm;">Rules at a glance</div>
+      <ul style="list-style: none;">
+        <li style="font-family: var(--body-font), sans-serif; font-size: 0.78rem; line-height: 1.5; color: var(--ink); padding: 2mm 0; border-bottom: 0.25pt solid var(--rule);">Use the primary logo on light backgrounds by default</li>
+        <li style="font-family: var(--body-font), sans-serif; font-size: 0.78rem; line-height: 1.5; color: var(--ink); padding: 2mm 0; border-bottom: 0.25pt solid var(--rule);">Use reversed on dark or photographic backgrounds</li>
+        <li style="font-family: var(--body-font), sans-serif; font-size: 0.78rem; line-height: 1.5; color: var(--ink); padding: 2mm 0; border-bottom: 0.25pt solid var(--rule);">Icon-only for small spaces: favicons, app icons, social</li>
+        <li style="font-family: var(--body-font), sans-serif; font-size: 0.78rem; line-height: 1.5; color: var(--ink); padding: 2mm 0; border-bottom: 0.25pt solid var(--rule);">Monochrome for one-color print, embossing, engraving</li>
+        <li style="font-family: var(--body-font), sans-serif; font-size: 0.78rem; line-height: 1.5; color: var(--ink); padding: 2mm 0; border-bottom: 0.25pt solid var(--rule);">Never stretch, rotate, recolor, or apply effects to the mark</li>
+        <li style="font-family: var(--body-font), sans-serif; font-size: 0.78rem; line-height: 1.5; color: var(--ink); padding: 2mm 0;">Never reproduce below minimum size: {{MIN_SIZE}}</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="spacer--l"></div>
+
+  <div class="t-h3" style="margin-bottom: 4mm;">File Formats</div>
+  <table style="width: 100%; border-collapse: collapse;">
+    <thead>
+      <tr>
+        <th style="font-family: var(--body-font), sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-caption); text-align: left; padding: 2mm 0; border-bottom: 0.5pt solid var(--rule);">Format</th>
+        <th style="font-family: var(--body-font), sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-caption); text-align: left; padding: 2mm 0; border-bottom: 0.5pt solid var(--rule);">Use case</th>
+        <th style="font-family: var(--body-font), sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-caption); text-align: left; padding: 2mm 0; border-bottom: 0.5pt solid var(--rule);">Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td style="font-family: var(--body-font), sans-serif; font-size: 0.78rem; color: var(--ink); padding: 2.5mm 0; border-bottom: 0.25pt solid var(--rule);">SVG</td>
+        <td style="font-family: var(--body-font), sans-serif; font-size: 0.78rem; color: var(--ink); padding: 2.5mm 0; border-bottom: 0.25pt solid var(--rule);">Web, digital, screen</td>
+        <td style="font-family: var(--body-font), sans-serif; font-size: 0.72rem; color: var(--ink-caption); padding: 2.5mm 0; border-bottom: 0.25pt solid var(--rule);">Preferred format for all digital use</td>
+      </tr>
+      <tr>
+        <td style="font-family: var(--body-font), sans-serif; font-size: 0.78rem; color: var(--ink); padding: 2.5mm 0; border-bottom: 0.25pt solid var(--rule);">EPS</td>
+        <td style="font-family: var(--body-font), sans-serif; font-size: 0.78rem; color: var(--ink); padding: 2.5mm 0; border-bottom: 0.25pt solid var(--rule);">Print production</td>
+        <td style="font-family: var(--body-font), sans-serif; font-size: 0.72rem; color: var(--ink-caption); padding: 2.5mm 0; border-bottom: 0.25pt solid var(--rule);">Vector master for print vendors</td>
+      </tr>
+      <tr>
+        <td style="font-family: var(--body-font), sans-serif; font-size: 0.78rem; color: var(--ink); padding: 2.5mm 0; border-bottom: 0.25pt solid var(--rule);">PNG</td>
+        <td style="font-family: var(--body-font), sans-serif; font-size: 0.78rem; color: var(--ink); padding: 2.5mm 0; border-bottom: 0.25pt solid var(--rule);">Quick placement, PPT, email</td>
+        <td style="font-family: var(--body-font), sans-serif; font-size: 0.72rem; color: var(--ink-caption); padding: 2.5mm 0; border-bottom: 0.25pt solid var(--rule);">Raster fallback. Use SVG when possible</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="footnote" style="margin-top: 12mm;">
+    For any use case not covered here, consult the full Brand Guidelines document or contact the brand steward before proceeding.
+  </div>
+
+  <span class="page-number">03</span>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{BRAND_NAME}} — Brand Guidelines</title>
+{{FONT_LINK}}
+<style>
+  :root {
+    --primary: {{PRIMARY_COLOR}};
+    --secondary: {{SECONDARY_COLOR}};
+    --neutral: {{NEUTRAL_TONE}};
+    --ink: oklch(0.22 0.01 75);
+    --ink-light: oklch(0.45 0.008 75);
+    --ink-caption: oklch(0.55 0.006 75);
+    --paper: oklch(0.97 0.008 85);
+    --paper-warm: oklch(0.94 0.012 80);
+    --paper-deep: oklch(0.90 0.015 78);
+    --rule: oklch(0.82 0.01 80);
+    --display-font: {{DISPLAY_FONT}};
+    --body-font: {{BODY_FONT}};
+    --page-w: 210mm;
+    --page-h: 297mm;
+    --margin-outer: 24mm;
+    --margin-inner: 18mm;
+    --gutter: 8mm;
+  }
+
+  @page {
+    size: A4 portrait;
+    margin: 0;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    font-size: 11pt;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  body {
+    font-family: var(--body-font), "Helvetica Neue", Helvetica, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.6;
+    letter-spacing: 0.005em;
+  }
+
+  .page {
+    width: var(--page-w);
+    height: var(--page-h);
+    padding: var(--margin-outer);
+    position: relative;
+    overflow: hidden;
+    page-break-after: always;
+    break-after: page;
+    background: var(--paper);
+  }
+
+  .page:last-child {
+    page-break-after: auto;
+    break-after: auto;
+  }
+
+  /* --- TYPOGRAPHY SCALE --- */
+
+  .t-display {
+    font-family: var(--display-font), Georgia, serif;
+    font-size: 3.2rem;
+    font-weight: 300;
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    color: var(--ink);
+  }
+
+  .t-h1 {
+    font-family: var(--display-font), Georgia, serif;
+    font-size: 1.8rem;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+  }
+
+  .t-h2 {
+    font-family: var(--display-font), Georgia, serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+
+  .t-h3 {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+  }
+
+  .t-body {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+
+  .t-caption {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.72rem;
+    line-height: 1.45;
+    letter-spacing: 0.03em;
+    color: var(--ink-caption);
+  }
+
+  .t-label {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    line-height: 1.3;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-caption);
+  }
+
+  /* --- PAGE HEADER --- */
+
+  .page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 6mm;
+    margin-bottom: 8mm;
+    border-bottom: 0.5pt solid var(--rule);
+  }
+
+  .page-header__brand {
+    font-family: var(--display-font), serif;
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.04em;
+    color: var(--ink-light);
+  }
+
+  .page-header__section {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-caption);
+  }
+
+  .page-number {
+    position: absolute;
+    bottom: var(--margin-outer);
+    right: var(--margin-outer);
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.6rem;
+    color: var(--ink-caption);
+    letter-spacing: 0.02em;
+  }
+
+  /* --- SECTION TITLE --- */
+
+  .section-title {
+    margin-bottom: 10mm;
+  }
+
+  .section-title__number {
+    display: block;
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 3mm;
+  }
+
+  .section-title__text {
+    font-family: var(--display-font), serif;
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 1.12;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+  }
+
+  .section-title__rule {
+    display: block;
+    width: 32mm;
+    height: 0.5pt;
+    background: var(--primary);
+    margin-top: 5mm;
+  }
+
+  /* --- COVER PAGE --- */
+
+  .cover {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: var(--margin-outer);
+    padding-bottom: 36mm;
+    background: var(--paper-warm);
+  }
+
+  .cover__logo {
+    position: absolute;
+    top: 28mm;
+    left: var(--margin-outer);
+    width: 48mm;
+    height: 48mm;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .cover__logo svg {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .cover__logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+  }
+
+  .cover__type-label {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-caption);
+    margin-bottom: 4mm;
+  }
+
+  .cover__brand-name {
+    font-family: var(--display-font), serif;
+    font-size: 4.5rem;
+    font-weight: 300;
+    line-height: 1.0;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+    margin-bottom: 6mm;
+    max-width: 80%;
+  }
+
+  .cover__tagline {
+    font-family: var(--body-font), sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.5;
+    color: var(--ink-light);
+    max-width: 60%;
+  }
+
+  .cover__meta {
+    position: absolute;
+    bottom: 28mm;
+    right: var(--margin-outer);
+    text-align: right;
+  }
+
+  .cover__meta-line {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-caption);
+    line-height: 1.8;
+  }
+
+  /* --- TABLE OF CONTENTS --- */
+
+  .toc {
+    padding-top: 20mm;
+  }
+
+  .toc__title {
+    font-family: var(--display-font), serif;
+    font-size: 1.6rem;
+    font-weight: 300;
+    color: var(--ink);
+    margin-bottom: 14mm;
+  }
+
+  .toc__list {
+    list-style: none;
+    counter-reset: toc-counter;
+  }
+
+  .toc__item {
+    display: flex;
+    align-items: baseline;
+    padding: 3.5mm 0;
+    border-bottom: 0.25pt solid var(--rule);
+    counter-increment: toc-counter;
+  }
+
+  .toc__number {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--primary);
+    width: 14mm;
+    flex-shrink: 0;
+  }
+
+  .toc__number::before {
+    content: counter(toc-counter, decimal-leading-zero);
+  }
+
+  .toc__label {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.88rem;
+    color: var(--ink);
+    flex: 1;
+  }
+
+  .toc__page {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.72rem;
+    color: var(--ink-caption);
+    text-align: right;
+    width: 10mm;
+    flex-shrink: 0;
+  }
+
+  /* --- TWO-COLUMN LAYOUT --- */
+
+  .cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--gutter);
+  }
+
+  .cols--wide-left {
+    grid-template-columns: 1.4fr 1fr;
+  }
+
+  .cols--wide-right {
+    grid-template-columns: 1fr 1.4fr;
+  }
+
+  /* --- BRAND MARK --- */
+
+  .mark-display {
+    background: var(--paper-warm);
+    padding: 16mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 56mm;
+    margin-bottom: 8mm;
+  }
+
+  .mark-display svg {
+    max-width: 56mm;
+    max-height: 40mm;
+  }
+
+  .mark-display img {
+    max-width: 56mm;
+    max-height: 40mm;
+    object-fit: contain;
+  }
+
+  .mark-display--dark {
+    background: var(--ink);
+  }
+
+  .mark-display--primary {
+    background: var(--primary);
+  }
+
+  .mark-variants {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 4mm;
+    margin-bottom: 8mm;
+  }
+
+  .mark-variants__cell {
+    padding: 10mm 8mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 36mm;
+  }
+
+  .mark-variants__cell svg {
+    max-width: 36mm;
+    max-height: 28mm;
+  }
+
+  .mark-variants__cell img {
+    max-width: 36mm;
+    max-height: 28mm;
+    object-fit: contain;
+  }
+
+  .clearspace-diagram {
+    position: relative;
+    background: var(--paper-warm);
+    padding: 20mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6mm;
+  }
+
+  .clearspace-diagram__zone {
+    position: absolute;
+    border: 0.5pt dashed var(--primary);
+    opacity: 0.5;
+  }
+
+  .clearspace-diagram img {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+  }
+
+  .clearspace-note {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.72rem;
+    color: var(--ink-caption);
+    line-height: 1.5;
+  }
+
+  .mark-donts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4mm;
+    margin-top: 6mm;
+  }
+
+  .mark-donts__item {
+    padding: 8mm;
+    background: var(--paper-deep);
+    position: relative;
+  }
+
+  .mark-donts__item::after {
+    content: "";
+    position: absolute;
+    top: 3mm;
+    right: 3mm;
+    width: 14pt;
+    height: 14pt;
+    border: 1.5pt solid oklch(0.55 0.15 25);
+    border-radius: 50%;
+    background: none;
+  }
+
+  .mark-donts__item::before {
+    content: "";
+    position: absolute;
+    top: 3mm;
+    right: 3mm;
+    width: 14pt;
+    height: 0;
+    border-top: 1.5pt solid oklch(0.55 0.15 25);
+    transform: rotate(45deg);
+    transform-origin: center;
+    margin-top: 6.5pt;
+    margin-right: 0;
+  }
+
+  .mark-donts__label {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.65rem;
+    color: var(--ink-caption);
+    margin-top: 4mm;
+  }
+
+  .mark-donts__item img {
+    max-width: 80%;
+    max-height: 80%;
+    object-fit: contain;
+  }
+
+  /* --- COLOR PALETTE --- */
+
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5mm;
+    margin-bottom: 8mm;
+  }
+
+  .swatch {
+    break-inside: avoid;
+  }
+
+  .swatch__color {
+    width: 100%;
+    height: 32mm;
+    margin-bottom: 3mm;
+  }
+
+  .swatch__color--large {
+    height: 48mm;
+  }
+
+  .swatch__name {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 1mm;
+  }
+
+  .swatch__value {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.65rem;
+    color: var(--ink-caption);
+    letter-spacing: 0.02em;
+    line-height: 1.6;
+  }
+
+  .swatch__role {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.65rem;
+    color: var(--ink-light);
+    font-style: italic;
+    margin-top: 1.5mm;
+  }
+
+  .color-usage {
+    margin-top: 8mm;
+    padding-top: 6mm;
+    border-top: 0.5pt solid var(--rule);
+  }
+
+  .color-usage__rule {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 4mm;
+  }
+
+  .color-usage__indicator {
+    width: 4mm;
+    height: 4mm;
+    flex-shrink: 0;
+    margin-top: 1.5mm;
+    margin-right: 3mm;
+  }
+
+  .color-usage__text {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.78rem;
+    color: var(--ink);
+    line-height: 1.5;
+  }
+
+  /* --- TYPOGRAPHY SPECIMENS --- */
+
+  .type-specimen {
+    margin-bottom: 8mm;
+    padding-bottom: 6mm;
+    border-bottom: 0.25pt solid var(--rule);
+  }
+
+  .type-specimen:last-child {
+    border-bottom: none;
+  }
+
+  .type-specimen__sample {
+    margin-bottom: 3mm;
+  }
+
+  .type-specimen__meta {
+    display: flex;
+    gap: 6mm;
+    flex-wrap: wrap;
+  }
+
+  .type-specimen__detail {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.62rem;
+    color: var(--ink-caption);
+    letter-spacing: 0.03em;
+  }
+
+  .type-specimen__detail span {
+    color: var(--ink-light);
+    font-weight: 600;
+  }
+
+  .type-pairing {
+    background: var(--paper-warm);
+    padding: 12mm;
+    margin-top: 8mm;
+  }
+
+  .type-pairing__headline {
+    margin-bottom: 4mm;
+  }
+
+  .type-pairing__body {
+    max-width: 75%;
+  }
+
+  /* --- VOICE & TONE --- */
+
+  .voice-block {
+    margin-bottom: 8mm;
+  }
+
+  .voice-description {
+    font-family: var(--body-font), sans-serif;
+    font-size: 1rem;
+    line-height: 1.65;
+    color: var(--ink);
+    max-width: 85%;
+    margin-bottom: 10mm;
+  }
+
+  .voice-list {
+    list-style: none;
+  }
+
+  .voice-list__item {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink);
+    padding: 2.5mm 0;
+    padding-left: 5mm;
+    position: relative;
+  }
+
+  .voice-list--do .voice-list__item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2.5mm;
+    height: 2.5mm;
+    background: var(--primary);
+    border-radius: 50%;
+  }
+
+  .voice-list--dont .voice-list__item::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2.5mm;
+    height: 0.5pt;
+    background: var(--ink-caption);
+  }
+
+  .voice-sample {
+    background: var(--paper-warm);
+    padding: 10mm 12mm;
+    margin-top: 6mm;
+  }
+
+  .voice-sample__label {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-caption);
+    margin-bottom: 4mm;
+  }
+
+  .voice-sample__text {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.6;
+    color: var(--ink);
+    font-style: italic;
+  }
+
+  /* --- IMAGERY --- */
+
+  .imagery-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 4mm;
+    margin-bottom: 8mm;
+  }
+
+  .imagery-placeholder {
+    background: var(--paper-deep);
+    min-height: 44mm;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .imagery-placeholder__label {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-caption);
+  }
+
+  .imagery-rule {
+    margin-bottom: 4mm;
+  }
+
+  .imagery-rule__title {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 1.5mm;
+  }
+
+  .imagery-rule__desc {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.78rem;
+    color: var(--ink-light);
+    line-height: 1.5;
+  }
+
+  /* --- DO'S AND DON'TS --- */
+
+  .guidelines-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6mm;
+  }
+
+  .guideline-column {
+    padding-top: 4mm;
+  }
+
+  .guideline-column--do {
+    border-top: 2pt solid var(--primary);
+  }
+
+  .guideline-column--dont {
+    border-top: 2pt solid var(--ink-caption);
+  }
+
+  .guideline-column__heading {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 5mm;
+  }
+
+  .guideline-column--do .guideline-column__heading {
+    color: var(--primary);
+  }
+
+  .guideline-column--dont .guideline-column__heading {
+    color: var(--ink-caption);
+  }
+
+  .guideline-item {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.82rem;
+    line-height: 1.5;
+    color: var(--ink);
+    padding: 3mm 0;
+    border-bottom: 0.25pt solid var(--rule);
+  }
+
+  .guideline-item:last-child {
+    border-bottom: none;
+  }
+
+  /* --- UTILITY --- */
+
+  .spacer--s { height: 4mm; }
+  .spacer--m { height: 8mm; }
+  .spacer--l { height: 14mm; }
+  .spacer--xl { height: 20mm; }
+
+  .divider {
+    border: none;
+    border-top: 0.5pt solid var(--rule);
+    margin: 6mm 0;
+  }
+
+  .footnote {
+    font-family: var(--body-font), sans-serif;
+    font-size: 0.6rem;
+    color: var(--ink-caption);
+    line-height: 1.5;
+    margin-top: 8mm;
+    padding-top: 4mm;
+    border-top: 0.25pt solid var(--rule);
+  }
+
+  .pull-quote {
+    font-family: var(--display-font), serif;
+    font-size: 1.3rem;
+    line-height: 1.35;
+    color: var(--ink);
+    padding-left: 6mm;
+    margin: 8mm 0;
+    max-width: 80%;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================ -->
+<!-- PAGE 1: COVER                                -->
+<!-- ============================================ -->
+<div class="page cover">
+  <div class="cover__logo">
+    {{LOGO_SVG}}
+  </div>
+
+  <div>
+    <div class="cover__type-label">Brand Guidelines</div>
+    <div class="cover__brand-name">{{BRAND_NAME}}</div>
+    <div class="cover__tagline">{{TAGLINE}}</div>
+  </div>
+
+  <div class="cover__meta">
+    <div class="cover__meta-line">Confidential</div>
+    <div class="cover__meta-line">Version 1.0</div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 2: TABLE OF CONTENTS                    -->
+<!-- ============================================ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header__brand">{{BRAND_NAME}}</span>
+    <span class="page-header__section">Contents</span>
+  </div>
+
+  <div class="toc">
+    <div class="toc__title">Contents</div>
+    <ol class="toc__list">
+      <li class="toc__item">
+        <span class="toc__number"></span>
+        <span class="toc__label">Brand Mark</span>
+        <span class="toc__page">03</span>
+      </li>
+      <li class="toc__item">
+        <span class="toc__number"></span>
+        <span class="toc__label">Color Palette</span>
+        <span class="toc__page">05</span>
+      </li>
+      <li class="toc__item">
+        <span class="toc__number"></span>
+        <span class="toc__label">Typography</span>
+        <span class="toc__page">06</span>
+      </li>
+      <li class="toc__item">
+        <span class="toc__number"></span>
+        <span class="toc__label">Voice &amp; Tone</span>
+        <span class="toc__page">07</span>
+      </li>
+      <li class="toc__item">
+        <span class="toc__number"></span>
+        <span class="toc__label">Imagery</span>
+        <span class="toc__page">08</span>
+      </li>
+      <li class="toc__item">
+        <span class="toc__number"></span>
+        <span class="toc__label">Do's &amp; Don'ts</span>
+        <span class="toc__page">09</span>
+      </li>
+    </ol>
+  </div>
+
+  <span class="page-number">02</span>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 3: BRAND MARK — USAGE                   -->
+<!-- ============================================ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header__brand">{{BRAND_NAME}}</span>
+    <span class="page-header__section">Brand Mark</span>
+  </div>
+
+  <div class="section-title">
+    <span class="section-title__number">01</span>
+    <span class="section-title__text">Brand Mark</span>
+    <span class="section-title__rule"></span>
+  </div>
+
+  <div class="t-body" style="max-width: 75%; margin-bottom: 10mm;">
+    The {{BRAND_NAME}} mark is the primary identifier of our brand. It must be reproduced consistently across all applications to maintain recognition and trust.
+  </div>
+
+  <div class="mark-variants">
+    <div class="mark-variants__cell" style="background: var(--paper-warm);">
+      {{LOGO_SVG}}
+    </div>
+    <div class="mark-variants__cell" style="background: var(--ink);">
+      {{LOGO_SVG}}
+    </div>
+    <div class="mark-variants__cell" style="background: var(--primary);">
+      {{LOGO_SVG}}
+    </div>
+  </div>
+
+  <div class="t-label" style="margin-bottom: 2mm;">Preferred variants</div>
+  <div class="t-caption" style="margin-bottom: 8mm;">
+    Left: default on light ground. Center: reversed on dark ground. Right: reversed on brand color.
+  </div>
+
+  <div class="t-h3" style="margin-bottom: 5mm;">Clear space</div>
+  <div class="clearspace-diagram">
+    {{LOGO_SVG}}
+  </div>
+  <div class="clearspace-note">
+    Maintain clear space equal to the cap-height of the logotype on all sides. No other graphic element, text, or edge should intrude into this zone.
+  </div>
+
+  <span class="page-number">03</span>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 4: BRAND MARK — DON'TS                  -->
+<!-- ============================================ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header__brand">{{BRAND_NAME}}</span>
+    <span class="page-header__section">Brand Mark</span>
+  </div>
+
+  <div class="t-h2" style="margin-bottom: 4mm;">Incorrect Usage</div>
+  <div class="t-body" style="max-width: 75%; margin-bottom: 8mm;">
+    Never alter the mark in ways that compromise its integrity. The following treatments are not permitted under any circumstance.
+  </div>
+
+  <div class="mark-donts">
+    <div class="mark-donts__item">
+      <div style="transform: scaleX(1.4); display: flex; align-items: center; justify-content: center; min-height: 28mm;">
+        {{LOGO_SVG}}
+      </div>
+      <div class="mark-donts__label">Do not stretch or distort</div>
+    </div>
+    <div class="mark-donts__item">
+      <div style="transform: rotate(15deg); display: flex; align-items: center; justify-content: center; min-height: 28mm;">
+        {{LOGO_SVG}}
+      </div>
+      <div class="mark-donts__label">Do not rotate</div>
+    </div>
+    <div class="mark-donts__item">
+      <div style="opacity: 0.3; display: flex; align-items: center; justify-content: center; min-height: 28mm;">
+        {{LOGO_SVG}}
+      </div>
+      <div class="mark-donts__label">Do not reduce opacity</div>
+    </div>
+    <div class="mark-donts__item">
+      <div style="filter: hue-rotate(180deg); display: flex; align-items: center; justify-content: center; min-height: 28mm;">
+        {{LOGO_SVG}}
+      </div>
+      <div class="mark-donts__label">Do not recolor arbitrarily</div>
+    </div>
+  </div>
+
+  <div class="spacer--l"></div>
+
+  <div class="t-h3" style="margin-bottom: 4mm;">Minimum Size</div>
+  <div class="t-body">
+    The mark should never be reproduced smaller than 18mm wide in print or 48px on screen. Below this threshold, fine details are lost and legibility suffers.
+  </div>
+
+  <span class="page-number">04</span>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 5: COLOR PALETTE                        -->
+<!-- ============================================ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header__brand">{{BRAND_NAME}}</span>
+    <span class="page-header__section">Color</span>
+  </div>
+
+  <div class="section-title">
+    <span class="section-title__number">02</span>
+    <span class="section-title__text">Color Palette</span>
+    <span class="section-title__rule"></span>
+  </div>
+
+  <div class="t-body" style="max-width: 75%; margin-bottom: 10mm;">
+    Our palette is defined in OKLCH for perceptual uniformity. Chroma reduces as lightness approaches extremes. Every neutral is tinted toward the brand hue.
+  </div>
+
+  <div class="swatch-grid">
+    {{COLOR_PALETTE}}
+  </div>
+
+  <div class="color-usage">
+    <div class="t-h3" style="margin-bottom: 5mm;">Usage Proportions</div>
+
+    <div class="color-usage__rule">
+      <div class="color-usage__indicator" style="background: var(--primary);"></div>
+      <div class="color-usage__text">Primary carries 30 to 60 percent of brand surfaces. Use on key actions, headlines, and brand moments.</div>
+    </div>
+
+    <div class="color-usage__rule">
+      <div class="color-usage__indicator" style="background: var(--secondary);"></div>
+      <div class="color-usage__text">Secondary supports. Use on accents, secondary UI, and complementary surfaces.</div>
+    </div>
+
+    <div class="color-usage__rule">
+      <div class="color-usage__indicator" style="background: var(--neutral);"></div>
+      <div class="color-usage__text">Neutrals dominate backgrounds and body text. Always tinted, never pure grey.</div>
+    </div>
+  </div>
+
+  <div class="footnote">
+    All values specified in OKLCH (Lightness, Chroma, Hue). Convert to sRGB hex for legacy systems only when required. Verify gamut mapping on target devices.
+  </div>
+
+  <span class="page-number">05</span>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 6: TYPOGRAPHY                           -->
+<!-- ============================================ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header__brand">{{BRAND_NAME}}</span>
+    <span class="page-header__section">Typography</span>
+  </div>
+
+  <div class="section-title">
+    <span class="section-title__number">03</span>
+    <span class="section-title__text">Typography</span>
+    <span class="section-title__rule"></span>
+  </div>
+
+  {{TYPOGRAPHY_HIERARCHY}}
+
+  <div class="spacer--m"></div>
+
+  <div class="type-pairing">
+    <div class="type-pairing__headline t-h1">
+      The quick brown fox jumps over the lazy dog
+    </div>
+    <div class="spacer--s"></div>
+    <div class="type-pairing__body t-body">
+      Typography is the voice made visible. Each level in our type system serves a specific role, from commanding attention at the display scale to carrying long-form reading at body size. Pair the display face with the body face as shown here.
+    </div>
+  </div>
+
+  <div class="footnote">
+    Specify fonts by family name, not file name. Fallback stacks: display face falls to Georgia, body face falls to system sans-serif. Line-height values are unitless ratios.
+  </div>
+
+  <span class="page-number">06</span>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 7: VOICE & TONE                         -->
+<!-- ============================================ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header__brand">{{BRAND_NAME}}</span>
+    <span class="page-header__section">Voice &amp; Tone</span>
+  </div>
+
+  <div class="section-title">
+    <span class="section-title__number">04</span>
+    <span class="section-title__text">Voice &amp; Tone</span>
+    <span class="section-title__rule"></span>
+  </div>
+
+  <div class="voice-description">
+    {{VOICE_DESCRIPTION}}
+  </div>
+
+  <div class="cols">
+    <div class="voice-block">
+      <div class="t-h3" style="margin-bottom: 4mm;">We sound like</div>
+      <ul class="voice-list voice-list--do">
+        {{VOICE_DOS}}
+      </ul>
+    </div>
+    <div class="voice-block">
+      <div class="t-h3" style="margin-bottom: 4mm;">We never sound like</div>
+      <ul class="voice-list voice-list--dont">
+        {{VOICE_DONTS}}
+      </ul>
+    </div>
+  </div>
+
+  <div class="voice-sample">
+    <div class="voice-sample__label">Sample copy in our voice</div>
+    <div class="voice-sample__text">
+      If you removed the brand name, you should still be able to tell this belongs to {{BRAND_NAME}}. Voice is constant. Tone shifts by context. Style is execution.
+    </div>
+  </div>
+
+  <span class="page-number">07</span>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 8: IMAGERY                              -->
+<!-- ============================================ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header__brand">{{BRAND_NAME}}</span>
+    <span class="page-header__section">Imagery</span>
+  </div>
+
+  <div class="section-title">
+    <span class="section-title__number">05</span>
+    <span class="section-title__text">Imagery</span>
+    <span class="section-title__rule"></span>
+  </div>
+
+  <div class="t-body" style="max-width: 75%; margin-bottom: 10mm;">
+    Photography and illustration carry the brand as much as color and type. Consistency in visual treatment keeps the identity coherent across every touchpoint.
+  </div>
+
+  <div class="imagery-grid">
+    <div class="imagery-placeholder" style="padding: 0; overflow: hidden;">
+      {{IMAGERY_PHOTOGRAPHY_TAG}}
+    </div>
+    <div class="imagery-placeholder" style="padding: 0; overflow: hidden;">
+      {{IMAGERY_ILLUSTRATION_TAG}}
+    </div>
+  </div>
+
+  <div class="cols" style="margin-top: 6mm;">
+    <div>
+      <div class="imagery-rule">
+        <div class="imagery-rule__title">Photography</div>
+        <div class="imagery-rule__desc">
+          Natural light. Unstaged, lived-in moments. Muted color grading that respects the brand palette. Subjects feel present, not performing.
+        </div>
+      </div>
+      <div class="imagery-rule">
+        <div class="imagery-rule__title">Illustration</div>
+        <div class="imagery-rule__desc">
+          Drawn from the brand color palette. Line weight consistent with type weight. Spare, not decorative. Illustration should clarify, not ornament.
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="imagery-rule">
+        <div class="imagery-rule__title">Composition</div>
+        <div class="imagery-rule__desc">
+          Off-center subjects. Generous negative space. Allow the image to breathe within the layout rather than filling every available pixel.
+        </div>
+      </div>
+      <div class="imagery-rule">
+        <div class="imagery-rule__title">What to avoid</div>
+        <div class="imagery-rule__desc">
+          Stock photography with artificial poses. Oversaturated color. Overly processed filters. Clip art. Generic icon sets. Decorative elements that carry no meaning.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <span class="page-number">08</span>
+</div>
+
+<!-- ============================================ -->
+<!-- PAGE 9: DO'S AND DON'TS                      -->
+<!-- ============================================ -->
+<div class="page">
+  <div class="page-header">
+    <span class="page-header__brand">{{BRAND_NAME}}</span>
+    <span class="page-header__section">Guidelines</span>
+  </div>
+
+  <div class="section-title">
+    <span class="section-title__number">06</span>
+    <span class="section-title__text">Do's &amp; Don'ts</span>
+    <span class="section-title__rule"></span>
+  </div>
+
+  <div class="t-body" style="max-width: 75%; margin-bottom: 10mm;">
+    Quick reference for applying the brand correctly. When in doubt, return to these principles.
+  </div>
+
+  <div class="guidelines-grid">
+    <div class="guideline-column guideline-column--do">
+      <div class="guideline-column__heading">Do</div>
+      <div class="guideline-item">Use the brand mark at prescribed sizes with proper clear space</div>
+      <div class="guideline-item">Apply the OKLCH palette as specified, tinting neutrals toward brand hue</div>
+      <div class="guideline-item">Pair the display typeface with the body typeface as documented</div>
+      <div class="guideline-item">Write in our voice: consistent, recognizable, true to the brand</div>
+      <div class="guideline-item">Use natural, unstaged photography with muted tones</div>
+      <div class="guideline-item">Leave generous whitespace in layouts</div>
+      <div class="guideline-item">Test color reproduction across screen and print</div>
+    </div>
+    <div class="guideline-column guideline-column--dont">
+      <div class="guideline-column__heading">Don't</div>
+      <div class="guideline-item">Stretch, rotate, recolor, or add effects to the mark</div>
+      <div class="guideline-item">Introduce colors outside the defined palette</div>
+      <div class="guideline-item">Substitute typefaces without approval</div>
+      <div class="guideline-item">Use generic corporate language or AI-branding tells</div>
+      <div class="guideline-item">Use stock photography with staged or artificial compositions</div>
+      <div class="guideline-item">Crowd layouts with competing elements</div>
+      <div class="guideline-item">Reproduce the mark below minimum size specifications</div>
+    </div>
+  </div>
+
+  <div class="spacer--l"></div>
+
+  <div class="pull-quote">
+    A brand is not a logo. It is the entire experience, made coherent.
+  </div>
+
+  <span class="page-number">09</span>
+</div>
+
+</body>
+</html>
