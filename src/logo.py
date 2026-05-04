@@ -263,30 +263,36 @@ def _build_primary_prompt(
     mood_ctx: str,
 ) -> str:
     colors = _format_colors(profile)
-    color_line = f". Brand colors: {colors}" if colors else ""
-    tagline_line = f' Tagline: "{profile.tagline}"' if profile.tagline else ""
+    mood = getattr(profile, "mood", None) or "Warm"
+    mood_surface = _MOOD_COLOR_MAP.get(mood, {}).get("surface", "clean matte")
+    personality = ", ".join(profile.personality_words[:3])
+    avoid = ", ".join(ANTI_SLOP_TERMS[:6])
 
     prompt = (
-        f"A professional {logo_type} logo for a brand called '{profile.name}' "
-        f"in the {profile.industry} industry.{tagline_line}"
-        f" The brand personality is {', '.join(profile.personality_words)}."
-        f" Design approach: {strategy} — {strategy_desc}.{mood_ctx}{color_line}."
-        f" The mark should feel {', '.join(profile.personality_words)} and avoid literal industry stereotypes.{anti_cliche}"
-        f" Clean vector-style flat design. High contrast for scalability. Designed in black first, color added intentionally."
+        f"Logo for '{profile.name}'. {logo_type} mark. "
+        f"Visual feel: {personality}. "
+        f"The form uses {strategy_desc}. "
+        f"{f'Colors: {colors}. ' if colors else ''}"
+        f"Surface quality: {mood_surface}. "
+        f"Flat vector, solid shapes, no gradients, high contrast, centered on white background. "
+        f"Avoid: {avoid}.{anti_cliche}"
     )
     return prompt
 
 
 def _build_icon_prompt(profile: BrandProfile, logo_type: str, anti_cliche: str) -> str:
     colors = _format_colors(profile)
-    color_line = f". Brand colors: {colors}" if colors else ""
+    personality = ", ".join(profile.personality_words[:3])
+    avoid = ", ".join(ANTI_SLOP_TERMS[:6])
 
     prompt = (
-        f"A simplified icon-only variant of the '{profile.name}' logo — "
-        f"reduced to its essential symbolic form, stripped of the wordmark."
-        f" Works as an app icon, favicon, or watermark at small sizes.{color_line}."
-        f"{anti_cliche}"
-        f" Clean flat vector design. Bold silhouette. No text."
+        f"Minimal icon mark for '{profile.name}'. "
+        f"Single symbol, no text, no letters. "
+        f"Visual feel: {personality}. "
+        f"{f'Colors: {colors}. ' if colors else ''}"
+        f"Bold geometric silhouette, works at 32px. "
+        f"Flat vector on white background, no gradients, no shadows. "
+        f"Avoid: {avoid}.{anti_cliche}"
     )
     return prompt
 
@@ -294,12 +300,16 @@ def _build_icon_prompt(profile: BrandProfile, logo_type: str, anti_cliche: str) 
 def _build_monochrome_prompt(
     profile: BrandProfile, logo_type: str, anti_cliche: str
 ) -> str:
+    personality = ", ".join(profile.personality_words[:3])
+    avoid = ", ".join(ANTI_SLOP_TERMS[:6])
+
     prompt = (
-        f"A single-color (monochrome) variant of the '{profile.name}' logo — "
-        f"designed for small-size reproduction: favicon, embroidery, stamp, footer."
-        f" Pure black on white, or white reversed out. No gradients."
-        f" The form must hold up without any color distinction.{anti_cliche}"
-        f" Clean vector design with strong silhouette."
+        f"Monochrome logo for '{profile.name}'. "
+        f"Pure black on white. Single weight, no gradients, no gray tones. "
+        f"Visual feel: {personality}. "
+        f"Strong silhouette that reads at stamp size. "
+        f"Flat vector, centered on white background. "
+        f"Avoid: {avoid}.{anti_cliche}"
     )
     return prompt
 
