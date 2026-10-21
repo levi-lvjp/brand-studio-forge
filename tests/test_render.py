@@ -8,7 +8,13 @@ from unittest import mock
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 
 from forge.src.brand_profile import BrandProfile
-from forge.src.render import render_pdf, render_png, _substitute_template
+from forge.src.render import (
+    render_pdf,
+    render_png,
+    _substitute_template,
+    _assert_no_unresolved_placeholders,
+    _validate_render_variables,
+)
 
 
 def _make_profile(**overrides) -> BrandProfile:
@@ -114,6 +120,20 @@ class TestSubstituteTemplate:
         }
         result = _substitute_template(self.TEMPLATE_CONTENT, variables)
         assert "<li>" not in result
+
+    def test_unresolved_placeholder_check_raises(self):
+        import pytest
+
+        html = "<div>{{BRAND_NAME}}</div><div>{{MISSING_FIELD}}</div>"
+        rendered = _substitute_template(html, {"BRAND_NAME": "Acme"})
+        with pytest.raises(ValueError):
+            _assert_no_unresolved_placeholders(rendered)
+
+    def test_render_variables_validation_raises_for_missing_required(self):
+        import pytest
+
+        with pytest.raises(ValueError):
+            _validate_render_variables({"BRAND_NAME": "Acme"})
 
 
 class TestRenderPdf:

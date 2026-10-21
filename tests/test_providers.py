@@ -7,9 +7,14 @@ from unittest import mock
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
 
 from forge.src.providers.base import ImageResult
+from forge.src.providers.image_flux import FluxProvider
 from forge.src.providers.image_gemini import GeminiProvider
 from forge.src.providers.image_openai import OpenAIProvider
-from forge.src.providers.registry import get_provider, available_providers
+from forge.src.providers.registry import (
+    get_provider,
+    available_providers,
+    resolve_provider_name,
+)
 
 
 class TestGeminiProviderFallback:
@@ -43,6 +48,22 @@ class TestOpenAIProviderFallback:
         assert result["url"] is None
         assert result["prompt_used"] == "test prompt"
         assert result["error"] == "OPENAI_API_KEY not set"
+
+
+class TestFluxProviderFallback:
+    @mock.patch.dict(os.environ, {}, clear=True)
+    def test_is_available_false_when_no_key(self):
+        provider = FluxProvider()
+        assert provider.is_available() is False
+
+    @mock.patch.dict(os.environ, {}, clear=True)
+    def test_generate_returns_fallback_when_no_key(self):
+        provider = FluxProvider()
+        result = provider.generate(prompt="test prompt")
+        assert result["fallback"] is True
+        assert result["url"] is None
+        assert result["prompt_used"] == "test prompt"
+        assert result["error"] == "FAL_KEY not set"
 
 
 class TestProviderImageResultShape:
@@ -86,9 +107,28 @@ class TestRegistryGetProvider:
         except ValueError as e:
             assert "Unknown provider" in str(e)
 
+    def test_returns_flux_provider(self):
+        provider = get_provider("flux")
+        assert isinstance(provider, FluxProvider)
+        assert provider.name == "flux"
+
 
 class TestRegistryAvailableProviders:
     @mock.patch.dict(os.environ, {}, clear=True)
     def test_returns_empty_list_when_no_env_vars(self):
         providers = available_providers()
         assert providers == []
+
+
+class TestResolveProviderName:
+    @mock.patch.dict(os.environ, {}, clear=True)
+    def test_returns_none_without_available(self):
+        assert resolve_provider_name("gemini") is None
+
+    @mock.patch.dict(os.environ, {"OPENAI_API_KEY": "x"}, clear=True)
+    def test_falls_back_to_available_provider(self):
+        assert resolve_provider_name("gemini") == "chatgpt"
+
+    @mock.patch.dict(os.environ, {}, clear=True)
+    def test_accepts_custom_when_allowed(self):
+        assert resolve_provider_name("custom", allow_custom=True) == "custom"

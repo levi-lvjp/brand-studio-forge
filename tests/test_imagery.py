@@ -1,8 +1,10 @@
 import os
+import io
 from unittest.mock import patch, MagicMock
 
 from forge.src.brand_profile import BrandProfile
 from forge.src.imagery import generate_brand_imagery, build_imagery_prompt
+from PIL import Image
 
 
 def _make_profile():
@@ -30,7 +32,10 @@ def test_build_imagery_prompt_illustration():
 
 def test_generate_brand_imagery_saves_files(tmp_path):
     profile = _make_profile()
-    fake_bytes = b"\x89PNG\r\n\x1a\n" + b"\x00" * 100
+    image = Image.new("RGB", (16, 16), (255, 0, 0))
+    buffer = io.BytesIO()
+    image.save(buffer, format="PNG")
+    fake_bytes = buffer.getvalue()
 
     mock_result = {
         "url": None,

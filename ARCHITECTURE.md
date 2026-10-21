@@ -183,11 +183,18 @@ forge/
 │   ├── typography.py                # Font pairing + voice
 │   ├── voice.py                     # Copy voice/tone
 │   ├── logo.py                      # Logo prompt generation
-│   ├── identity_kit.py             # Identity kit orchestration
+│   ├── imagery.py                   # Brand imagery prompts + generation
+│   ├── image_gen.py                 # Logo image generation pipeline
+│   ├── identity_kit.py              # Identity kit orchestration
 │   ├── render.py                    # HTML→PDF/PNG via Playwright
-│   ├── skill_forge.py              # Write .py skill to disk (Beat 5)
+│   ├── skill_forge.py               # Write .py skill to disk (Beat 5)
 │   └── providers/
-│       └── image_flux.py            # FLUX via fal.ai
+│       ├── image_gemini.py          # Gemini image provider
+│       ├── image_openai.py          # OpenAI image provider
+│       ├── image_flux.py            # FLUX via fal.ai
+│       ├── image_custom.py          # OpenAI-compatible custom provider
+│       ├── keystore.py              # API key persistence + env injection
+│       └── registry.py              # Provider resolution and fallback
 ├── assets/
 │   └── templates/
 │       ├── brand_guidelines.html    # Primary deliverable template
@@ -199,10 +206,15 @@ forge/
     ├── test_color.py
     ├── test_typography.py
     ├── test_voice.py
+    ├── test_logo.py
     ├── test_identity_kit.py
+    ├── test_image_gen.py
+    ├── test_imagery.py
+    ├── test_image_flux.py
+    ├── test_providers.py
+    ├── test_keystore.py
     ├── test_render.py
-    ├── test_skill_forge.py
-    └── test_e2e.py
+    └── test_skill_forge.py
 ```
 
 ---
@@ -223,9 +235,11 @@ FORGE (scripts/run_forge.py)
   ├── Child 1: COLOR (src/color.py)     → reads color-theory.md → partial profile
   ├── Child 2: TYPE (src/typography.py) → reads typography-voice.md → partial profile
   ├── Child 3: VOICE (src/voice.py)     → reads voice.md → partial profile
-  └── Child 4: LOGO (src/logo.py)      → reads logo-and-mark.md → logo prompt
+  └── Child 4: LOGO (src/logo.py)      → reads logo-and-mark.md → logo prompt set
   ↓ (merge)
   identity_kit.py → complete BrandProfile JSON
+  ↓
+  image_gen.py + imagery.py + provider registry → logo/imagery assets (or placeholders)
   ↓
   RENDER (src/render.py) → brand_guidelines.pdf + brand card pdf
   ↓

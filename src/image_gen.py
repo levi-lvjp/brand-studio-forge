@@ -81,6 +81,7 @@ def generate_logo_images(
 
         os.makedirs(output_dir, exist_ok=True)
 
+        successful_renders = 0
         for prompt_key, file_stem in prompt_keys:
             prompt_text = logo_prompts.get(prompt_key, "")
             if not prompt_text:
@@ -94,26 +95,28 @@ def generate_logo_images(
                 height=512,
             )
 
-            if result.get("fallback"):
-                return None
-            if result.get("error"):
-                return None
+            if result.get("fallback") or result.get("error"):
+                continue
 
             image_bytes = result.get("image_bytes")
             if image_bytes is None and result.get("url"):
                 url = result["url"]
                 req = urllib.request.Request(url)
-                with urllib.request.urlopen(req, timeout=60) as response:
-                    image_bytes = response.read()
+                try:
+                    with urllib.request.urlopen(req, timeout=60, context=_SSL_CTX) as response:
+                        image_bytes = response.read()
+                except Exception:
+                    image_bytes = None
 
             if image_bytes is None:
-                return None
+                continue
 
             filename = f"{file_stem}.png"
             filepath = os.path.join(output_dir, filename)
             with open(filepath, "wb") as f:
                 f.write(image_bytes)
             logo_files.append(filepath)
+            successful_renders += 1
 
             b64 = base64.b64encode(image_bytes).decode("utf-8")
             img_tag = (
@@ -121,6 +124,9 @@ def generate_logo_images(
                 f' style="max-width:100%;max-height:100%">'
             )
             img_tags[f"{file_stem}_img_tag"] = img_tag
+
+        if successful_renders == 0:
+            return None
 
         return {
             "logo_img_tag": img_tags.get("logo_primary_img_tag", ""),

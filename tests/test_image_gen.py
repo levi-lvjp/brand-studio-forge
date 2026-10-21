@@ -159,7 +159,7 @@ class TestGenerateLogoImagesPartialFailure:
     )
     @mock.patch("builtins.open", new_callable=mock.mock_open)
     @mock.patch("forge.src.image_gen.get_provider")
-    def test_returns_none_when_one_prompt_fails(
+    def test_returns_partial_output_when_one_prompt_fails(
         self, mock_get_provider, mock_open, mock_join, mock_makedirs
     ):
         mock_get_provider.return_value = _FakeFlakyProvider()
@@ -175,7 +175,11 @@ class TestGenerateLogoImagesPartialFailure:
             output_dir="/tmp/test_output",
         )
 
-        assert result is None
+        assert result is not None
+        assert "logo_img_tag" in result
+        assert "logo_mono_img_tag" in result
+        assert result["logo_mono_img_tag"] == ""
+        assert len(result["logo_files"]) == 2
 
     @mock.patch("forge.src.image_gen.os.makedirs")
     @mock.patch(

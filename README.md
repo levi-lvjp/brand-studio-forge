@@ -64,14 +64,17 @@ Most AI-generated brands look like AI-generated brands. Forge is built to avoid 
 
 ## Image generation
 
-Forge generates logos and brand imagery (photography style, illustration style) using AI image providers. Two providers are supported out of the box:
+Forge generates logos and brand imagery (photography style, illustration style) using AI image providers. Preset providers supported out of the box:
 
 | Provider | Model | Env variable |
 |---|---|---|
-| Gemini | Gemini 2.0 Flash Preview Image Generation | `GEMINI_API_KEY` |
+| Gemini | Gemini 3.1 Flash Image Preview | `GEMINI_API_KEY` |
 | OpenAI | GPT Image 2 | `OPENAI_API_KEY` |
+| fal.ai | FLUX/schnell | `FAL_KEY` |
 
 API keys are stored persistently in `~/.forge/keys.json` after first use. The skill prompts for a key if none is found.
+
+Custom OpenAI-compatible endpoints are also supported by selecting the `custom` provider and passing `base_url` + `model`.
 
 Raw image prompts are refined through an LLM layer (Gemini 2.5 Flash) that expands brief descriptions into detailed art-direction prompts with composition, lighting, texture, and mood specifics.
 
@@ -124,6 +127,7 @@ forge/
 │   └── providers/          # Image generation backends
 │       ├── image_gemini.py
 │       ├── image_openai.py
+│       ├── image_flux.py
 │       ├── image_custom.py
 │       ├── keystore.py
 │       └── registry.py
@@ -158,7 +162,13 @@ forge/
 - Python 3.10+
 - Playwright + Chromium (for PDF/PNG rendering)
 - Pillow (for image post-processing)
-- At least one image provider API key (Gemini or OpenAI)
+- At least one image provider API key (Gemini, OpenAI, or fal.ai)
+
+## Testing
+
+```bash
+pytest
+```
 
 ## License
 

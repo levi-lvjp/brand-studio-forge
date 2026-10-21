@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import re
 import sys
 
 sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", ".."))
@@ -28,6 +29,35 @@ def _substitute_template(template: str, variables: dict) -> str:
     return result
 
 
+def _assert_no_unresolved_placeholders(rendered_html: str) -> None:
+    unresolved = sorted(set(re.findall(r"{{[A-Z0-9_]+}}", rendered_html)))
+    if unresolved:
+        raise ValueError(
+            "Template rendering failed: unresolved placeholders: "
+            + ", ".join(unresolved)
+        )
+
+
+def _validate_render_variables(variables: dict) -> None:
+    required_fields = (
+        "BRAND_NAME",
+        "PRIMARY_COLOR",
+        "SECONDARY_COLOR",
+        "NEUTRAL_TONE",
+        "DISPLAY_FONT",
+        "BODY_FONT",
+        "VOICE_DESCRIPTION",
+        "COLOR_PALETTE",
+        "TYPOGRAPHY_HIERARCHY",
+    )
+    missing = [f for f in required_fields if not variables.get(f)]
+    if missing:
+        raise ValueError(
+            "Render preflight failed: missing required template values: "
+            + ", ".join(missing)
+        )
+
+
 def _launch_browser():
     try:
         p = sync_playwright().start()
@@ -48,6 +78,7 @@ def render_pdf(template_path: str, variables: dict, output_path: str) -> str:
         template = f.read()
 
     html = _substitute_template(template, variables)
+    _assert_no_unresolved_placeholders(html)
 
     p, browser = _launch_browser()
     try:
@@ -81,6 +112,7 @@ def render_png(
         template = f.read()
 
     html = _substitute_template(template, variables)
+    _assert_no_unresolved_placeholders(html)
 
     p, browser = _launch_browser()
     try:
@@ -103,6 +135,7 @@ def render_png(
 def render_brand_kit(profile: BrandProfile, output_dir: str = "./output") -> dict:
     os.makedirs(output_dir, exist_ok=True)
     variables = assemble_identity_dict(profile)
+    _validate_render_variables(variables)
 
     base = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     templates_dir = os.path.join(base, "assets", "templates")

@@ -10,9 +10,18 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), ".."
 from forge.src.brand_profile import BrandProfile
 from forge.src.color import generate_palette
 from forge.src.imagery import generate_brand_imagery
-from forge.src.providers.registry import available_providers
+from forge.src.providers.registry import resolve_provider_name
 from forge.src.typography import generate_typography
 from forge.src.voice import generate_voice
+
+
+def _require_value(value, field_name: str) -> None:
+    if value is None:
+        raise ValueError(f"Identity assembly failed: missing '{field_name}'.")
+    if isinstance(value, str) and not value.strip():
+        raise ValueError(f"Identity assembly failed: empty '{field_name}'.")
+    if isinstance(value, list) and not value:
+        raise ValueError(f"Identity assembly failed: empty '{field_name}'.")
 
 
 def assemble_identity(profile: BrandProfile) -> BrandProfile:
@@ -59,10 +68,9 @@ def assemble_identity(profile: BrandProfile) -> BrandProfile:
     except ImportError:
         logo = None
 
-    if result.image_provider:
+    selected_provider = resolve_provider_name(result.image_provider, allow_custom=True)
+    if selected_provider:
         try:
-            import base64
-
             output_dir = os.path.join(
                 os.path.dirname(os.path.abspath(__file__)), "..", "output"
             )
@@ -102,7 +110,7 @@ def assemble_identity(profile: BrandProfile) -> BrandProfile:
 
                 result._logo_images = generate_logo_images(
                     logo_prompts=logo or {},
-                    provider_name=result.image_provider,
+                    provider_name=selected_provider,
                     provider_config=result.image_provider_config,
                     output_dir=output_dir,
                 )
@@ -110,6 +118,21 @@ def assemble_identity(profile: BrandProfile) -> BrandProfile:
             result._logo_images = None
     else:
         result._logo_images = None
+
+    required_fields = (
+        "primary_color",
+        "secondary_color",
+        "neutral_tone",
+        "display_font",
+        "body_font",
+        "voice_tone",
+        "voice_dos",
+        "voice_donts",
+        "tagline",
+        "color_strategy",
+    )
+    for field_name in required_fields:
+        _require_value(getattr(result, field_name), field_name)
 
     return result
 
@@ -254,13 +277,8 @@ def assemble_identity_dict(profile: BrandProfile) -> dict:
     if os.path.isfile(photo_path) and os.path.isfile(illust_path):
         imagery_paths = {"photography": photo_path, "illustration": illust_path}
     else:
-        providers = available_providers()
-        if providers:
-            preferred = (
-                assembled.image_provider
-                if assembled.image_provider in providers
-                else providers[0]
-            )
+        preferred = resolve_provider_name(assembled.image_provider)
+        if preferred:
             try:
                 imagery_paths = generate_brand_imagery(
                     assembled, output_dir, provider_name=preferred
